@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+{% load static %}
+<div class="jumbotron">
+    <h1>Heart Disease Prediction </h1>
+    <div class="fieldWrapper">
+      <h2>For the values</h2>
+      <p>Age: <b>{{ data_age }}</b></p>
+
+      <p>Gender:<b> {% if data_sex == 1 %}Male{% else %}Female{% endif %}</b></p>
+
+      <p>Chest Pain Type:<b>
+          {% if data_cp == 0 %}Typical
+          {% elif data_cp == 1 %}Atypical
+          {% elif data_cp == 2 %}Non-anginal
+          {% else %}Asymptomatic
+          {% endif %}
+      </b></p>
+
+      <p>Cholesterol: <b>{{ data_chol }}</b> mg/dl</p>
+
+      <p>Max Heart Rate Achieved: <b>{{ data_thalach }}</b></p>
+
+      <p>Exercise Induced Angina: <b>{% if data_exang == 1 %}Yes{% else %}No{% endif %}</b></p>
+
+      <p>ST Depression : <b>{{ data_oldpeak }}</b></p>
+
+      <p>Number of Major Vessels:<b>
+        {% if data_ca|add:"0" == 0 %}None
+        {% elif data_ca|add:"0" == 1 %}One
+        {% elif data_ca|add:"0" == 2 %}Two
+        {% else %}Three
+        {% endif %}
+
+      </b></p>
+      <br>
+
+      {% if out == 1 %}
+         <p>Based on the info you entered, your <b>heart disease risk</b> is <span style="color:red; font-weight:bold;">High</span>.</p>
+         <p>Please consider consulting a healthcare professional for advice.</p>
+      {% else %}
+          <p>Based on the info you entered, your <b>heart disease risk</b> is <span style="color:green; font-weight:bold;">Low</span>.</p>
+      {% endif %}
+
+      <br>
+
+      <a  href="{% url 'heartdiseaseapp:heart' %}">Heart Disease Prediction</a>
+      <br>
+</div>
+{% endblock %}
